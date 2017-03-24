@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVPDemoMine</string>
+    <string name="checkbutton_name">获取信息</string>
+</resources>
