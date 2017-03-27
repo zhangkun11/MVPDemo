@@ -3,6 +3,7 @@ package com.example.retrofitrxjava.mvpdemomine.ui.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView bookImage;
     @InjectView(R.id.book_title)
     TextView bookTitle;
+    @InjectView(R.id.book_search)
+    EditText bookSearch;
     private BookPresenter bookPresenter;
+    private String bookName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         bookPresenter = new BookPresenter(this);
         bookPresenter.onCreate();
         bookPresenter.onAttachView(mBookView);
+        bookSearch.setText("西游记");
+
     }
 
     private BookView mBookView = new BookView() {
@@ -54,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.checkInfo)
     public void onClick() {
-        bookPresenter.getSearchBooks("西游记", null, 0, 1);
+        bookName=bookSearch.getText().toString();
+        bookPresenter.getSearchBooks(bookName, null, 0, 1);
     }
 
     @Override
