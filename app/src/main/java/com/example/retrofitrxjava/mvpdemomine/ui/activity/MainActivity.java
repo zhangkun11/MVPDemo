@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         bookPresenter.onCreate();
         bookPresenter.onAttachView(mBookView);
         bookSearch.setText("西游记");
+        bookSearch.setSelection(bookSearch.getText().length());
 
     }
 
