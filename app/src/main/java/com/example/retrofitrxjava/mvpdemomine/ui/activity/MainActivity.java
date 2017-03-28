@@ -37,18 +37,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         bookPresenter = new BookPresenter(this);
-        bookPresenter.onCreate();
-        bookPresenter.onAttachView(mBookView);
+
         bookSearch.setText("西游记");
         bookSearch.setSelection(bookSearch.getText().length());
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bookPresenter.onCreate();
+        bookPresenter.onAttachView(mBookView);
+    }
+
     private BookView mBookView = new BookView() {
         @Override
         public void onSuccess(Book mBook) {
-            bookTitle.setText(mBook.toString());
-            bookInfo.setText(mBook.getBooks().toString());
+            //bookTitle.setText(mBook.toString());
+            setBookTitle(mBook);
+            //bookInfo.setText(mBook.getBooks().toString());
+            setBookInfo(mBook);
             Glide.with(MainActivity.this).load(mBook.getBooks().get(0).getImage()).into(bookImage);
         }
 
@@ -69,5 +77,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         bookPresenter.onStop();
+    }
+    private void setBookTitle(Book mBook){
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("书籍：").append(mBook.getBooks().get(0).getTitle()).append("\n");
+        stringBuilder.append("作者：").append(mBook.getBooks().get(0).getAuthor()).append("\n");
+        stringBuilder.append("出版社：").append(mBook.getBooks().get(0).getPublisher()).append("\n");
+        stringBuilder.append("出版时间：").append(mBook.getBooks().get(0).getPubdate()).append("\n");
+        stringBuilder.append("价格：").append(mBook.getBooks().get(0).getPrice()).append("\n");
+        bookTitle.setText(stringBuilder);
+    }
+    private void setBookInfo(Book mBook){
+        StringBuilder sb=new StringBuilder();
+        sb.append(mBook.getBooks().get(0).getCatalog()).append("\n").append("\n");
+        sb.append("   作者介绍:").append(mBook.getBooks().get(0).getAuthor_intro()).append("\n");
+        bookInfo.setText(sb);
     }
 }
