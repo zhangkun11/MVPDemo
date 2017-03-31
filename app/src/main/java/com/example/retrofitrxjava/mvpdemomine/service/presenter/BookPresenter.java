@@ -1,6 +1,7 @@
 package com.example.retrofitrxjava.mvpdemomine.service.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.retrofitrxjava.mvpdemomine.service.RetrofitServiceManager;
 import com.example.retrofitrxjava.mvpdemomine.service.entity.Book;
@@ -78,6 +79,7 @@ public class BookPresenter implements Presenter {
             public void onCompleted() {
                 if(mBook!=null){
                     mBookView.onSuccess(mBook);
+                    Log.i("info", "onCompleted: "+mBook.getBooks().toString());
                 }
             }
 
